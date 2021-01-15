@@ -228,8 +228,8 @@ sim_pars_ARMA=function(x,y,v,z,p,q){
 }
 
 
-inarma_rjmcmc=function(x_data_data,init_augs,init_pars,init_order,order_max,N_reps){
-  n=length(x_data_data)
+inarma_rjmcmc=function(x_data,init_augs,init_pars,init_order,order_max,N_reps){
+  n=length(x_data)
   rmax=max(p.max,q.max)+2
   
   order_count=rbind(rep(0,N_reps),rep(0,N_reps))
@@ -379,7 +379,7 @@ inarma_rjmcmc=function(x_data_data,init_augs,init_pars,init_order,order_max,N_re
       
       prob=rep(1,n)
       for(t in rmax:n){
-        prob[t]=dpois(zprop[t],lambdaprop)/(dpois(z[t],lambda)*dbinom(y[1,t],x_data_data[t-1],alpha[1]))
+        prob[t]=dpois(zprop[t],lambdaprop)/(dpois(z[t],lambda)*dbinom(y[1,t],x_data[t-1],alpha[1]))
         for(j in 1:q){
           prob[t]=prob[t]*dbinom(vprop[j,t],zprop[t-j],beta[j])/dbinom(v[j,t],z[t-j],beta[j])
         }
@@ -439,7 +439,7 @@ inarma_rjmcmc=function(x_data_data,init_augs,init_pars,init_order,order_max,N_re
       
       prob=rep(1,n)
       for(t in (rmax):n){
-        prob[t]=dbinom(yprop[K,t],x_data_data[t-K],alphaprop[K])*dbinom(yprop[pprop,t],x_data[t-pprop],alphaprop[pprop])/dbinom(y[K,t],x_data[t-K],alpha[K])
+        prob[t]=dbinom(yprop[K,t],x_data[t-K],alphaprop[K])*dbinom(yprop[pprop,t],x_data[t-pprop],alphaprop[pprop])/dbinom(y[K,t],x_data[t-K],alpha[K])
       }
       
       f=prod(prob)*n^(-0.5)*pprop
