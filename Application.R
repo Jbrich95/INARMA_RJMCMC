@@ -12,13 +12,13 @@ q_init=2
 p_init=2
 
 #Initialise alpha_1,...,alpha_p,beta_1,...,beta_q,lambda
-alpha=rep(1/(p+1),p)
-beta=rep(1/(q+1),q)
+alpha=rep(1/(p_init+1),p_init)
+beta=rep(1/(q_init+1),q_init)
 lambda=1
 
 #Initalise augmented data
-y=matrix(rep(0,n*p),byrow=TRUE,nrow=p)
-v=matrix(rep(0,n*q),byrow=TRUE,nrow=q)
+y=matrix(rep(0,n*p_init),byrow=TRUE,nrow=p_init)
+v=matrix(rep(0,n*q_init),byrow=TRUE,nrow=q_init)
 z=x_data
 
 #Set maximum order
@@ -27,7 +27,7 @@ q.max=4
 
 init_augs=rbind(y,v,z)
 init_pars=c(alpha,beta,lambda)
-init_order=c(p,q)
+init_order=c(p_init,q_init)
 order_max = c(p.max, q.max)
 N_reps = 5000
 
